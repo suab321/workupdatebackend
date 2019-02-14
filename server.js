@@ -14,7 +14,7 @@ app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({extended:false}))
 app.use(cors({
     credentials:true,
-    origin: ['http://localhost:3000'],
+    origin: ['https://stormy-brushlands-80911.herokuapp.com'],
     methods:['GET','POST','PUT','DELETE']
 }))
 app.use((req,res,next)=>{
@@ -29,7 +29,7 @@ app.use(cookieparser());
 const verify=(req,res,next)=>{
     const bearer=req.headers['authorization'];
     if(bearer==='undefined')
-        res.redirect('http://localhost:3000/adminlogin');
+        res.redirect('https://stormy-brushlands-80911.herokuapp.com/adminlogin');
     else{
         req.token=bearer.split(' ')[1];
         next();
@@ -54,7 +54,7 @@ app.get('/logout',(req,res)=>{
 app.get('/loggedin',verify,(req,res)=>{
     jwt.verify(req.token,'suab',(err,authdata)=>{
         if(authdata)
-            res.redirect('http://localhost:3000/developerdashboard')
+            res.redirect('https://stormy-brushlands-80911.herokuapp.com/developerdashboard')
     })
 })
 
@@ -147,7 +147,7 @@ const confirmemail=(email)=>{
         to:email,
         subject:"Verification email for Zias Tecnologies",
         text:"Click the link below to confirm",
-        html:'<p>Click the link for verification<a href="http://localhost:3000/password/'+email+'">Verify</a></p>'
+        html:'<p>Click the link for verification<a href="https://stormy-brushlands-80911.herokuapp.com/password/'+email+'">Verify</a></p>'
     }
     transporter.sendMail(mailoptions,(err,res)=>{
         if(err)
@@ -319,7 +319,7 @@ app.put('/assigndevelopers/:id',verify,(req,res)=>{
                     }).catch((err)=>console.log(err))
                 }).catch(err=>console.log(err))
                  })
-                 res.redirect('http://localhost:3000/admindashboard');
+                 res.redirect('https://stormy-brushlands-80911.herokuapp.com/admindashboard');
                 }
                 else{
                     res.status(400).json("You are not an admin");
@@ -484,7 +484,7 @@ app.put('/updatestatus/:proid',verify,(req,res)=>{
                 if(err)
                     res.status(400).json(err)
                 else
-                    res.redirect(`http://localhost:3000/mypro/${req.params.proid}`)
+                    res.redirect(`https://stormy-brushlands-80911.herokuapp.com/mypro/${req.params.proid}`)
             }
            ) 
         }
@@ -671,7 +671,7 @@ app.delete('/deletedevfromproject/:devid/:proid',verify,(req,res)=>{
                         developer.findOneAndUpdate({_id:req.params.devid},{$pull:{'ongoing_projects':{'proid':req.params.proid}}},{new:true}).
                         then(user=>{
                             if(user){
-                                res.redirect(`http://localhost:3000/admindashboard`)
+                                res.redirect(`https://stormy-brushlands-80911.herokuapp.com/admindashboard`)
                             }
                             else
                                 res.status(400).json("undefiend error")
