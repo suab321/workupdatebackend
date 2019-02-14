@@ -35,6 +35,9 @@ const verify=(req,res,next)=>{
         next();
     }
 }
+app.get('/',(req,res)=>{
+    res.send("yo");
+})
 //to check if session exist
 app.get('/user_exist',(req,res)=>{
     
