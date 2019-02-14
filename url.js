@@ -1,4 +1,4 @@
-const url="https://stormy-brushlands-80911.herokuapp.com";
+const url="https://protected-brushlands-36431.herokuapp.com";
 
 module.exports={
     url
